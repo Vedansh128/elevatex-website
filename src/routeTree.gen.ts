@@ -14,6 +14,7 @@ import { Route as WorkspaceRouteRouteImport } from './routes/workspace/route'
 import { Route as WorkspaceIndexRouteImport } from './routes/workspace/index'
 import { Route as WorkspaceElevationRouteImport } from './routes/workspace/elevation'
 import { Route as WorkspaceUploadRouteImport } from './routes/workspace/upload'
+import { Route as WorkspaceViewerRouteImport } from './routes/workspace/viewer'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,18 +41,25 @@ const WorkspaceUploadRoute = WorkspaceUploadRouteImport.update({
   path: '/upload',
   getParentRoute: () => WorkspaceRouteRoute,
 } as any)
+const WorkspaceViewerRoute = WorkspaceViewerRouteImport.update({
+  id: '/viewer',
+  path: '/viewer',
+  getParentRoute: () => WorkspaceRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/workspace': typeof WorkspaceRouteRouteWithChildren
   '/workspace/elevation': typeof WorkspaceElevationRoute
   '/workspace/upload': typeof WorkspaceUploadRoute
+  '/workspace/viewer': typeof WorkspaceViewerRoute
   '/workspace/': typeof WorkspaceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/workspace/elevation': typeof WorkspaceElevationRoute
   '/workspace/upload': typeof WorkspaceUploadRoute
+  '/workspace/viewer': typeof WorkspaceViewerRoute
   '/workspace': typeof WorkspaceIndexRoute
 }
 export interface FileRoutesById {
@@ -60,6 +68,7 @@ export interface FileRoutesById {
   '/workspace': typeof WorkspaceRouteRouteWithChildren
   '/workspace/elevation': typeof WorkspaceElevationRoute
   '/workspace/upload': typeof WorkspaceUploadRoute
+  '/workspace/viewer': typeof WorkspaceViewerRoute
   '/workspace/': typeof WorkspaceIndexRoute
 }
 export interface FileRouteTypes {
@@ -69,15 +78,22 @@ export interface FileRouteTypes {
     | '/workspace'
     | '/workspace/elevation'
     | '/workspace/upload'
+    | '/workspace/viewer'
     | '/workspace/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/workspace/elevation' | '/workspace/upload' | '/workspace'
+  to:
+    | '/'
+    | '/workspace/elevation'
+    | '/workspace/upload'
+    | '/workspace/viewer'
+    | '/workspace'
   id:
     | '__root__'
     | '/'
     | '/workspace'
     | '/workspace/elevation'
     | '/workspace/upload'
+    | '/workspace/viewer'
     | '/workspace/'
   fileRoutesById: FileRoutesById
 }
@@ -123,18 +139,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkspaceUploadRouteImport
       parentRoute: typeof WorkspaceRouteRoute
     }
+    '/workspace/viewer': {
+      id: '/workspace/viewer'
+      path: '/viewer'
+      fullPath: '/workspace/viewer'
+      preLoaderRoute: typeof WorkspaceViewerRouteImport
+      parentRoute: typeof WorkspaceRouteRoute
+    }
   }
 }
 
 interface WorkspaceRouteRouteChildren {
   WorkspaceElevationRoute: typeof WorkspaceElevationRoute
   WorkspaceUploadRoute: typeof WorkspaceUploadRoute
+  WorkspaceViewerRoute: typeof WorkspaceViewerRoute
   WorkspaceIndexRoute: typeof WorkspaceIndexRoute
 }
 
 const WorkspaceRouteRouteChildren: WorkspaceRouteRouteChildren = {
   WorkspaceElevationRoute: WorkspaceElevationRoute,
   WorkspaceUploadRoute: WorkspaceUploadRoute,
+  WorkspaceViewerRoute: WorkspaceViewerRoute,
   WorkspaceIndexRoute: WorkspaceIndexRoute,
 }
 
