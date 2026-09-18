@@ -60,9 +60,11 @@ function finalize(
   let min = Infinity;
   let max = -Infinity;
   for (let i = 0; i < data.length; i++) {
-    if (data[i] < min) min = data[i];
-    if (data[i] > max) max = data[i];
+    const v = data[i]!;
+    if (v < min) min = v;
+    if (v > max) max = v;
   }
+
   return { grid, data, min, max, cellSize, absolute };
 }
 
@@ -71,7 +73,7 @@ export function rescale(field: HeightField, minM: number, maxM: number, absolute
   const span = field.max - field.min || 1;
   const out = new Float32Array(field.data.length);
   for (let i = 0; i < out.length; i++) {
-    out[i] = minM + ((field.data[i] - field.min) / span) * (maxM - minM);
+    out[i] = minM + ((field.data[i]! - field.min) / span) * (maxM - minM);
   }
   return finalize(out, field.grid, field.cellSize, absolute);
 }
@@ -111,7 +113,7 @@ export function heightFieldFromImage(
       const sx = Math.min(width - 1, Math.round((x / (grid - 1)) * (width - 1)));
       const sy = Math.min(height - 1, Math.round((y / (grid - 1)) * (height - 1)));
       const i = (sy * width + sx) * 4;
-      const lum = (0.2126 * pixels[i] + 0.7152 * pixels[i + 1] + 0.0722 * pixels[i + 2]) / 255;
+      const lum = (0.2126 * pixels[i]! + 0.7152 * pixels[i + 1]! + 0.0722 * pixels[i + 2]!) / 255;
       raw[y * grid + x] = lum;
     }
   }
@@ -128,7 +130,7 @@ export function heightFieldFromImage(
             const nx = x + dx;
             const ny = y + dy;
             if (nx < 0 || ny < 0 || nx >= grid || ny >= grid) continue;
-            sum += src[ny * grid + nx];
+            sum += src[ny * grid + nx]!;
             count++;
           }
         }
@@ -137,7 +139,7 @@ export function heightFieldFromImage(
     }
   }
   for (let i = 0; i < blurred.length; i++) {
-    blurred[i] = blurred[i] * 0.75 + raw[i] * 0.25;
+    blurred[i] = blurred[i]! * 0.75 + raw[i]! * 0.25;
   }
   return finalize(blurred, grid, cellSize, false);
 }
@@ -152,10 +154,11 @@ export function sampleHeight(field: HeightField, u: number, v: number) {
   const y1 = Math.min(g - 1, y0 + 1);
   const fx = x - x0;
   const fy = y - y0;
-  const a = field.data[y0 * g + x0];
-  const b = field.data[y0 * g + x1];
-  const c = field.data[y1 * g + x0];
-  const d = field.data[y1 * g + x1];
+  const a = field.data[y0 * g + x0]!;
+  const b = field.data[y0 * g + x1]!;
+  const c = field.data[y1 * g + x0]!;
+  const d = field.data[y1 * g + x1]!;
+
   return (a * (1 - fx) + b * fx) * (1 - fy) + (c * (1 - fx) + d * fx) * fy;
 }
 
@@ -165,10 +168,11 @@ export function slopeField(field: HeightField): { data: Float32Array; max: numbe
   let max = 0;
   for (let y = 0; y < g; y++) {
     for (let x = 0; x < g; x++) {
-      const xl = field.data[y * g + Math.max(0, x - 1)];
-      const xr = field.data[y * g + Math.min(g - 1, x + 1)];
-      const yt = field.data[Math.max(0, y - 1) * g + x];
-      const yb = field.data[Math.min(g - 1, y + 1) * g + x];
+      const xl = field.data[y * g + Math.max(0, x - 1)]!;
+      const xr = field.data[y * g + Math.min(g - 1, x + 1)]!;
+      const yt = field.data[Math.max(0, y - 1) * g + x]!;
+      const yb = field.data[Math.min(g - 1, y + 1) * g + x]!;
+
       const dzdx = (xr - xl) / (2 * field.cellSize);
       const dzdy = (yb - yt) / (2 * field.cellSize);
       const deg = (Math.atan(Math.hypot(dzdx, dzdy)) * 180) / Math.PI;
@@ -259,13 +263,14 @@ export function colormap(name: ColormapName, t: number): Stop {
   const scaled = clamped * (ramp.length - 1);
   const i = Math.min(ramp.length - 2, Math.floor(scaled));
   const f = scaled - i;
-  const a = ramp[i];
-  const b = ramp[i + 1];
+  const a = ramp[i]!;
+  const b = ramp[i + 1]!;
   return [
     Math.round(a[0] + (b[0] - a[0]) * f),
     Math.round(a[1] + (b[1] - a[1]) * f),
     Math.round(a[2] + (b[2] - a[2]) * f),
   ];
+
 }
 
 export function colormapCss(name: ColormapName) {
@@ -301,7 +306,7 @@ export function paintField(
   if (!ctx) return;
   const img = ctx.createImageData(grid, grid);
   for (let i = 0; i < values.length; i++) {
-    let t = (values[i] - lo) / span;
+    let t = (values[i]! - lo) / span;
     t = Math.min(1, Math.max(0, (t - 0.5) * contrast + 0.5));
     const [r, g, b] = colormap(cmap, t);
     const bandIndex = Math.floor(t * 12);
