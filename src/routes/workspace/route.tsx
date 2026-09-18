@@ -6,11 +6,12 @@ import {
   LayoutDashboard,
   Layers,
   Ruler,
-  Settings,
   ShieldCheck,
   Upload,
 } from "lucide-react";
 import { DemoBadge, Logo, StatusPill } from "@/components/brand";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { AuthMenu } from "@/components/auth-menu";
 import { useProject } from "@/lib/project-store";
 
 export const Route = createFileRoute("/workspace")({
