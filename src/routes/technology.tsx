@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Logo, SihBadge } from "@/components/brand";
 import { Panel, PanelHeader } from "@/components/panel";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { AuthMenu } from "@/components/auth-menu";
 
 export const Route = createFileRoute("/technology")({
   head: () => ({
@@ -65,9 +67,15 @@ function TechnologyPage() {
         <Link to="/">
           <Logo />
         </Link>
-        <Link to="/workspace">
-          <Button size="sm">Launch workspace</Button>
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link to="/workspace">
+            <Button size="sm" variant="outline">
+              Workspace
+            </Button>
+          </Link>
+          <ThemeToggle />
+          <AuthMenu compact />
+        </div>
       </header>
 
       <main className="mx-auto max-w-6xl space-y-5 px-5 pb-20 lg:px-8">

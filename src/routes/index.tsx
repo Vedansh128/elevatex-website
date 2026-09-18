@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Logo, SihBadge } from "@/components/brand";
 import { PipelineFlow } from "@/components/pipeline";
 import { Panel } from "@/components/panel";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { AuthMenu } from "@/components/auth-menu";
 import { LazyTerrainViewer } from "@/components/terrain-viewer-lazy";
 import { useProject } from "@/lib/project-store";
 import { demoHeightField, demoTextureDataUrl } from "@/lib/terrain";
@@ -73,13 +75,17 @@ function Landing() {
         <Logo />
         <nav className="flex items-center gap-2">
           <Link to="/technology">
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
               Technology
             </Button>
           </Link>
           <Link to="/workspace">
-            <Button size="sm">Launch workspace</Button>
+            <Button size="sm" variant="outline">
+              Workspace
+            </Button>
           </Link>
+          <ThemeToggle />
+          <AuthMenu compact />
         </nav>
       </header>
 

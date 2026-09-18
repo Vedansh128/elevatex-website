@@ -6,11 +6,12 @@ import {
   LayoutDashboard,
   Layers,
   Ruler,
-  Settings,
   ShieldCheck,
   Upload,
 } from "lucide-react";
 import { DemoBadge, Logo, StatusPill } from "@/components/brand";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { AuthMenu } from "@/components/auth-menu";
 import { useProject } from "@/lib/project-store";
 
 export const Route = createFileRoute("/workspace")({
@@ -65,9 +66,8 @@ function WorkspaceLayout() {
           <div className="flex items-center gap-2">
             {processingMode === "demo" ? <DemoBadge label="DEMO MODE" /> : null}
             <StatusPill status={status} />
-            <span className="flex size-8 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground">
-              <Settings className="size-4" />
-            </span>
+            <ThemeToggle />
+            <AuthMenu compact />
           </div>
         </div>
       </header>

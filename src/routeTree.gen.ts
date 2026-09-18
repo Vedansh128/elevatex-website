@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as TechnologyRouteImport } from './routes/technology'
 import { Route as WorkspaceRouteRouteImport } from './routes/workspace/route'
 import { Route as WorkspaceIndexRouteImport } from './routes/workspace/index'
@@ -23,6 +24,11 @@ import { Route as WorkspaceViewerRouteImport } from './routes/workspace/viewer'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TechnologyRoute = TechnologyRouteImport.update({
@@ -74,6 +80,7 @@ const WorkspaceViewerRoute = WorkspaceViewerRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/workspace': typeof WorkspaceRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/technology': typeof TechnologyRoute
   '/workspace/elevation': typeof WorkspaceElevationRoute
   '/workspace/export': typeof WorkspaceExportRoute
@@ -85,6 +92,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/technology': typeof TechnologyRoute
   '/workspace/elevation': typeof WorkspaceElevationRoute
   '/workspace/export': typeof WorkspaceExportRoute
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/workspace': typeof WorkspaceRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/technology': typeof TechnologyRoute
   '/workspace/elevation': typeof WorkspaceElevationRoute
   '/workspace/export': typeof WorkspaceExportRoute
@@ -112,6 +121,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/workspace'
+    | '/auth'
     | '/technology'
     | '/workspace/elevation'
     | '/workspace/export'
@@ -123,6 +133,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/technology'
     | '/workspace/elevation'
     | '/workspace/export'
@@ -135,6 +146,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/workspace'
+    | '/auth'
     | '/technology'
     | '/workspace/elevation'
     | '/workspace/export'
@@ -148,6 +160,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   WorkspaceRouteRoute: typeof WorkspaceRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   TechnologyRoute: typeof TechnologyRoute
 }
 
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/technology': {
@@ -253,6 +273,7 @@ const WorkspaceRouteRouteWithChildren = WorkspaceRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   WorkspaceRouteRoute: WorkspaceRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   TechnologyRoute: TechnologyRoute,
 }
 export const routeTree = rootRouteImport
