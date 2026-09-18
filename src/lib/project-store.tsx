@@ -34,7 +34,7 @@ export type SourceImage = {
   height: number;
   url: string;
   georeferenced: boolean;
-  geo?: GeoMetadata;
+  geo?: GeoMetadata | undefined;
   isDemo: boolean;
 };
 
