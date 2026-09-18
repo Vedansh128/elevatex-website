@@ -6,8 +6,23 @@ import { CalibrationPanel } from "@/components/calibration-panel";
 import { useProject } from "@/lib/project-store";
 
 export const Route = createFileRoute("/workspace/elevation")({
+  head: () => ({
+    meta: [
+      { title: "Elevation & Depth Maps — ElevateX" },
+      {
+        name: "description",
+        content: "Compare RGB, relative depth and the calibrated digital surface model side by side.",
+      },
+      { property: "og:title", content: "Elevation & Depth Maps — ElevateX" },
+      {
+        property: "og:description",
+        content: "Synchronized depth and DSM views with colormaps, clipping and scale calibration.",
+      },
+    ],
+  }),
   component: ElevationPage,
 });
+
 
 function ElevationPage() {
   const { field, loadDemo } = useProject();

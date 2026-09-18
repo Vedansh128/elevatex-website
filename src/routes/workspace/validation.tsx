@@ -5,8 +5,23 @@ import { ValidationPanel } from "@/components/validation-panel";
 import { useProject } from "@/lib/project-store";
 
 export const Route = createFileRoute("/workspace/validation")({
+  head: () => ({
+    meta: [
+      { title: "Accuracy Validation — ElevateX" },
+      {
+        name: "description",
+        content: "Compare predicted elevations with reference data using MAE, RMSE and correlation.",
+      },
+      { property: "og:title", content: "Accuracy Validation — ElevateX" },
+      {
+        property: "og:description",
+        content: "Error maps, scatter plots and landscape benchmarks for the estimated surface model.",
+      },
+    ],
+  }),
   component: ValidationPage,
 });
+
 
 function ValidationPage() {
   const { field, loadDemo } = useProject();

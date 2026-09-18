@@ -5,8 +5,23 @@ import { AnalysisPanel } from "@/components/analysis-panel";
 import { useProject } from "@/lib/project-store";
 
 export const Route = createFileRoute("/workspace/measurements")({
+  head: () => ({
+    meta: [
+      { title: "Height & Slope Measurements — ElevateX" },
+      {
+        name: "description",
+        content: "Measure structure heights, elevation differences, distances, slope and profiles.",
+      },
+      { property: "og:title", content: "Height & Slope Measurements — ElevateX" },
+      {
+        property: "og:description",
+        content: "Click two points to read elevation difference, ground distance and slope angle.",
+      },
+    ],
+  }),
   component: MeasurementsPage,
 });
+
 
 function MeasurementsPage() {
   const { field, loadDemo } = useProject();

@@ -11,8 +11,23 @@ import { useProject } from "@/lib/project-store";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/workspace/viewer")({
+  head: () => ({
+    meta: [
+      { title: "3D Terrain Flythrough — ElevateX" },
+      {
+        name: "description",
+        content: "Explore the generated terrain in 3D with orbit, flythrough, wireframe and shading modes.",
+      },
+      { property: "og:title", content: "3D Terrain Flythrough — ElevateX" },
+      {
+        property: "og:description",
+        content: "Interactive Three.js terrain built from the estimated digital surface model.",
+      },
+    ],
+  }),
   component: ViewerPage,
 });
+
 
 function ViewerPage() {
   const { field, textureUrl, image, loadDemo, processingMode } = useProject();

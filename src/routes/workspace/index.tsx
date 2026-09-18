@@ -7,8 +7,23 @@ import { DemoBadge } from "@/components/brand";
 import { useProject } from "@/lib/project-store";
 
 export const Route = createFileRoute("/workspace/")({
+  head: () => ({
+    meta: [
+      { title: "ElevateX Workspace — Project Overview" },
+      {
+        name: "description",
+        content: "Pipeline status, dataset metadata and elevation summary for your ElevateX scene.",
+      },
+      { property: "og:title", content: "ElevateX Workspace Overview" },
+      {
+        property: "og:description",
+        content: "Track the single-view height estimation pipeline from RGB image to 3D terrain.",
+      },
+    ],
+  }),
   component: Overview,
 });
+
 
 function Overview() {
   const { image, status, field, calibration, loadDemo, process, processingMode, backendConfigured } =
