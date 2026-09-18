@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Logo, SihBadge } from "@/components/brand";
 import { Panel, PanelHeader } from "@/components/panel";
-import { isBackendConfigured, API_URL } from "@/lib/api";
 
 export const Route = createFileRoute("/technology")({
   head: () => ({
@@ -58,18 +57,6 @@ const SERVICES = [
   { name: "validation_service", detail: "MAE / RMSE / correlation against reference" },
 ];
 
-const ENDPOINTS = [
-  "POST /api/upload",
-  "POST /api/process",
-  "POST /api/depth",
-  "POST /api/calibrate",
-  "POST /api/generate-dsm",
-  "POST /api/generate-mesh",
-  "POST /api/validate",
-  "GET  /api/status/:jobId",
-  "GET  /api/result/:jobId",
-  "POST /api/export",
-];
 
 function TechnologyPage() {
   return (
@@ -136,23 +123,6 @@ function TechnologyPage() {
           </div>
         </div>
 
-        <Panel>
-          <PanelHeader
-            title="API contract"
-            description={
-              isBackendConfigured()
-                ? `Frontend targets ${API_URL} via VITE_API_URL.`
-                : "Set VITE_API_URL to point the frontend at the FastAPI service. Until then the app runs a clearly-labelled demo pipeline."
-            }
-          />
-          <div className="grid gap-1.5 font-mono text-[0.72rem] text-muted-foreground sm:grid-cols-2">
-            {ENDPOINTS.map((e) => (
-              <span key={e} className="rounded-md border border-border bg-surface/50 px-2.5 py-1.5">
-                {e}
-              </span>
-            ))}
-          </div>
-        </Panel>
 
         <Panel>
           <PanelHeader
