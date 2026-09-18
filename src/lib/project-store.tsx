@@ -22,6 +22,18 @@ import {
   rescale,
   type HeightField,
 } from "./terrain";
+import {
+  ACCEPTED_EXT,
+  MAX_FILE_MB,
+  STAGES,
+  type Calibration,
+  type CalibrationMode,
+  type ProcessingMode,
+  type SourceImage,
+  type StageKey,
+  type StageState,
+} from "./project-types";
+
 
 export type {
   Calibration,
