@@ -65,9 +65,8 @@ function WorkspaceLayout() {
           <div className="flex items-center gap-2">
             {processingMode === "demo" ? <DemoBadge label="DEMO MODE" /> : null}
             <StatusPill status={status} />
-            <span className="flex size-8 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground">
-              <Settings className="size-4" />
-            </span>
+            <ThemeToggle />
+            <AuthMenu compact />
           </div>
         </div>
       </header>
