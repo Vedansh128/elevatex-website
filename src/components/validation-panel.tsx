@@ -40,18 +40,21 @@ export function ValidationPanel() {
     let maxAbs = 0;
     const scatter: { predicted: number; reference: number }[] = [];
     for (let i = 0; i < field.data.length; i++) {
-      const d = field.data[i] - reference.data[i];
+      const p = field.data[i] ?? 0;
+      const r = reference.data[i] ?? 0;
+      const d = p - r;
       error[i] = d;
       sumAbs += Math.abs(d);
       sumSq += d * d;
       maxAbs = Math.max(maxAbs, Math.abs(d));
       if (i % 37 === 0) {
         scatter.push({
-          predicted: Number(field.data[i].toFixed(1)),
-          reference: Number(reference.data[i].toFixed(1)),
+          predicted: Number(p.toFixed(1)),
+          reference: Number(r.toFixed(1)),
         });
       }
     }
+
     const n = field.data.length;
     const meanP = field.data.reduce((a, b) => a + b, 0) / n;
     const meanR = reference.data.reduce((a, b) => a + b, 0) / n;
@@ -59,8 +62,9 @@ export function ValidationPanel() {
     let varP = 0;
     let varR = 0;
     for (let i = 0; i < n; i++) {
-      const dp = field.data[i] - meanP;
-      const dr = reference.data[i] - meanR;
+      const dp = (field.data[i] ?? 0) - meanP;
+      const dr = (reference.data[i] ?? 0) - meanR;
+
       cov += dp * dr;
       varP += dp * dp;
       varR += dr * dr;

@@ -47,8 +47,9 @@ export function ElevationAnalysis() {
           <PanelHeader
             title="Original RGB"
             badge={image?.isDemo ? <DemoBadge /> : undefined}
-            description={image?.name}
+            description={image?.name ?? undefined}
           />
+
           <div className="aspect-square overflow-hidden rounded-lg border border-border bg-surface">
             {image?.url ? (
               <img src={image.url} alt="Source imagery" className="size-full object-cover" />
@@ -122,7 +123,7 @@ export function ElevationAnalysis() {
               min={20}
               max={100}
               step={1}
-              onValueChange={(v) => setOpacity(v[0])}
+              onValueChange={(v) => setOpacity(v[0] ?? DEFAULTS.opacity)}
             />
           </label>
           <label className="space-y-2">
@@ -132,7 +133,7 @@ export function ElevationAnalysis() {
               min={0.5}
               max={2.5}
               step={0.05}
-              onValueChange={(v) => setContrast(v[0])}
+              onValueChange={(v) => setContrast(v[0] ?? DEFAULTS.contrast)}
             />
           </label>
           <label className="space-y-2">
@@ -142,7 +143,7 @@ export function ElevationAnalysis() {
               min={Math.floor(field.min)}
               max={Math.ceil(field.max)}
               step={1}
-              onValueChange={(v) => setMinClip(Math.min(v[0], hi - 1))}
+              onValueChange={(v) => setMinClip(Math.min(v[0] ?? lo, hi - 1))}
             />
           </label>
           <label className="space-y-2">
@@ -152,7 +153,7 @@ export function ElevationAnalysis() {
               min={Math.floor(field.min)}
               max={Math.ceil(field.max)}
               step={1}
-              onValueChange={(v) => setMaxClip(Math.max(v[0], lo + 1))}
+              onValueChange={(v) => setMaxClip(Math.max(v[0] ?? hi, lo + 1))}
             />
           </label>
           <label className="space-y-2">

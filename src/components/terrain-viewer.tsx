@@ -23,17 +23,18 @@ function useTerrainGeometry(field: HeightField, shading: boolean, cmap: Colormap
     const g = field.grid;
     const geo = new THREE.PlaneGeometry(PLANE, PLANE, g - 1, g - 1);
     geo.rotateX(-Math.PI / 2);
-    const pos = geo.attributes.position as THREE.BufferAttribute;
+    const pos = geo.attributes["position"] as THREE.BufferAttribute;
     const span = field.max - field.min || 1;
     const heightScale = (PLANE / ((g - 1) * field.cellSize)) * VERTICAL_EXAGGERATION;
     const colors = new Float32Array(pos.count * 3);
     for (let i = 0; i < pos.count; i++) {
       const row = Math.floor(i / g);
       const col = i % g;
-      const h = field.data[row * g + col];
+      const h = field.data[row * g + col] ?? field.min;
       pos.setY(i, (h - field.min) * heightScale);
       const t = (h - field.min) / span;
       const [r, gr, b] = shading ? colormap(cmap, t) : [255, 255, 255];
+
       colors[i * 3] = r / 255;
       colors[i * 3 + 1] = gr / 255;
       colors[i * 3 + 2] = b / 255;
@@ -94,7 +95,7 @@ function Terrain({
         const g = field.grid;
         const col = Math.min(g - 1, Math.max(0, Math.round(u * (g - 1))));
         const row = Math.min(g - 1, Math.max(0, Math.round(v * (g - 1))));
-        onPick({ u, v, elevation: field.data[row * g + col] });
+        onPick({ u, v, elevation: field.data[row * g + col] ?? field.min });
       }}
     >
       <meshStandardMaterial
