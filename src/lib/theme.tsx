@@ -11,7 +11,6 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 function applyTheme(theme: Theme) {
   const root = document.documentElement;
   root.classList.toggle("dark", theme === "dark");
-  root.style.colorScheme = theme;
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -45,4 +44,4 @@ export function useTheme() {
   return ctx;
 }
 
-export const themeBootstrapScript = `(function(){try{var t=localStorage.getItem('${STORAGE_KEY}');var d=t!=='light';document.documentElement.classList.toggle('dark',d);document.documentElement.style.colorScheme=d?'dark':'light';}catch(e){}})();`;
+export const themeBootstrapScript = `(function(){try{var t=localStorage.getItem('${STORAGE_KEY}');var d=t!=='light';document.documentElement.classList.toggle('dark',d);}catch(e){}})();`;
