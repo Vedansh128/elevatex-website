@@ -21,18 +21,19 @@ export class BackendUnavailableError extends Error {
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   if (!isBackendConfigured()) throw new BackendUnavailableError();
+  const headers: HeadersInit | undefined =
+    init?.body instanceof FormData
+      ? init.headers
+      : { "content-type": "application/json", ...((init?.headers as Record<string, string>) ?? {}) };
+  const options: RequestInit = { ...init };
+  if (headers) options.headers = headers;
   let res: Response;
   try {
-    res = await fetch(`${API_URL.replace(/\/$/, "")}${path}`, {
-      ...init,
-      headers:
-        init?.body instanceof FormData
-          ? init?.headers
-          : { "content-type": "application/json", ...(init?.headers ?? {}) },
-    });
+    res = await fetch(`${API_URL.replace(/\/$/, "")}${path}`, options);
   } catch {
     throw new BackendUnavailableError("Could not reach the AI backend");
   }
+
   if (!res.ok) throw new Error(`Backend error ${res.status}: ${await res.text()}`);
   return (await res.json()) as T;
 }

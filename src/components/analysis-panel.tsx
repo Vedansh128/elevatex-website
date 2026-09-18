@@ -144,10 +144,11 @@ export function AnalysisPanel() {
               <p className="mt-1 text-xs text-muted-foreground">
                 Point A · u {a.u.toFixed(3)}, v {a.v.toFixed(3)}
               </p>
-              {metrics ? (
+              {metrics && b ? (
                 <div className="mt-4">
                   <KeyValue label="Point A elevation" value={`${a.elevation.toFixed(1)} m`} />
                   <KeyValue label="Point B elevation" value={`${b.elevation.toFixed(1)} m`} />
+
                   <KeyValue
                     label="Elevation difference"
                     value={`${metrics.diff.toFixed(1)} m`}

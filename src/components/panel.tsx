@@ -7,8 +7,9 @@ export function Panel({
   bleed,
 }: {
   children: ReactNode;
-  className?: string;
-  bleed?: boolean;
+  className?: string | undefined;
+  bleed?: boolean | undefined;
+
 }) {
   return <div className={cn("panel", bleed ? "" : "p-5", className)}>{children}</div>;
 }
@@ -20,9 +21,10 @@ export function PanelHeader({
   badge,
 }: {
   title: string;
-  description?: string;
-  actions?: ReactNode;
-  badge?: ReactNode;
+  description?: string | undefined;
+  actions?: ReactNode | undefined;
+  badge?: ReactNode | undefined;
+
 }) {
   return (
     <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
@@ -51,9 +53,10 @@ export function StatCard({
 }: {
   label: string;
   value: ReactNode;
-  hint?: ReactNode;
-  icon?: ReactNode;
-  accent?: boolean;
+  hint?: ReactNode | undefined;
+  icon?: ReactNode | undefined;
+  accent?: boolean | undefined;
+
 }) {
   return (
     <div className="panel p-4">
@@ -90,7 +93,8 @@ export function EmptyState({
 }: {
   title: string;
   description: string;
-  action?: ReactNode;
+  action?: ReactNode | undefined;
+
 }) {
   return (
     <div className="panel flex flex-col items-center justify-center gap-3 px-6 py-14 text-center">
