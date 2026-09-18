@@ -5,8 +5,23 @@ import { Panel, PanelHeader } from "@/components/panel";
 import { useProject } from "@/lib/project-store";
 
 export const Route = createFileRoute("/workspace/upload")({
+  head: () => ({
+    meta: [
+      { title: "Upload Imagery — ElevateX" },
+      {
+        name: "description",
+        content: "Upload aerial or satellite imagery (JPG, PNG, TIFF, GeoTIFF) and run the depth pipeline.",
+      },
+      { property: "og:title", content: "Upload Imagery — ElevateX" },
+      {
+        property: "og:description",
+        content: "Drag and drop imagery, inspect georeferencing metadata and start processing.",
+      },
+    ],
+  }),
   component: UploadPage,
 });
+
 
 function UploadPage() {
   const { status } = useProject();

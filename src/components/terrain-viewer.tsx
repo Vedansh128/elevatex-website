@@ -60,7 +60,8 @@ function Terrain({
   showTexture: boolean;
   shading: boolean;
   cmap: ColormapName;
-  onPick?: (pick: ViewerPick) => void;
+  onPick?: ((pick: ViewerPick) => void) | undefined;
+
 }) {
   const geometry = useTerrainGeometry(field, shading, cmap);
   const [texture, setTexture] = useState<THREE.Texture | null>(null);

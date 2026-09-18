@@ -1,6 +1,8 @@
 import { Check, Circle, Loader2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { STAGES, useProject } from "@/lib/project-store";
+import { useProject } from "@/lib/project-store";
+import { STAGES } from "@/lib/project-types";
+
 
 export function PipelineStages({ compact }: { compact?: boolean }) {
   const { stages, status, processingMode, backendConfigured } = useProject();

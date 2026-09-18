@@ -3,7 +3,9 @@ import { FileImage, Globe2, Play, Sparkles, Trash2, Upload } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { Panel, PanelHeader, KeyValue } from "@/components/panel";
 import { DemoBadge } from "@/components/brand";
-import { ACCEPTED_EXT, MAX_FILE_MB, useProject } from "@/lib/project-store";
+import { useProject } from "@/lib/project-store";
+import { ACCEPTED_EXT, MAX_FILE_MB } from "@/lib/project-types";
+
 import { cn } from "@/lib/utils";
 
 function formatSize(bytes: number) {

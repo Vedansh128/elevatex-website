@@ -5,8 +5,23 @@ import { useProject } from "@/lib/project-store";
 import { API_URL, isBackendConfigured } from "@/lib/api";
 
 export const Route = createFileRoute("/workspace/export")({
+  head: () => ({
+    meta: [
+      { title: "Export Results — ElevateX" },
+      {
+        name: "description",
+        content: "Download depth maps, elevation rasters, 3D screenshots and measurement reports.",
+      },
+      { property: "og:title", content: "Export Results — ElevateX" },
+      {
+        property: "og:description",
+        content: "Export derived products, including GeoTIFF DSM writing through the backend service.",
+      },
+    ],
+  }),
   component: ExportPage,
 });
+
 
 function ExportPage() {
   const { image, field, calibration, processingMode } = useProject();
