@@ -23,57 +23,15 @@ import {
   type HeightField,
 } from "./terrain";
 
-export const MAX_FILE_MB = 40;
-export const ACCEPTED_EXT = ["jpg", "jpeg", "png", "tif", "tiff"];
+export type {
+  Calibration,
+  CalibrationMode,
+  ProcessingMode,
+  SourceImage,
+  StageKey,
+  StageState,
+} from "./project-types";
 
-export type SourceImage = {
-  name: string;
-  sizeBytes: number;
-  type: string;
-  width: number;
-  height: number;
-  url: string;
-  georeferenced: boolean;
-  geo?: GeoMetadata | undefined;
-  isDemo: boolean;
-};
-
-export type StageKey =
-  | "preprocess"
-  | "normalize"
-  | "depth"
-  | "refine"
-  | "calibrate"
-  | "dsm"
-  | "mesh";
-
-export type StageState = "pending" | "running" | "done" | "failed";
-
-export const STAGES: { key: StageKey; label: string; detail: string }[] = [
-  { key: "preprocess", label: "Image preprocessing", detail: "Tiling, resampling, EXIF/CRS read" },
-  { key: "normalize", label: "RGB normalization", detail: "Per-channel normalization" },
-  { key: "depth", label: "Monocular depth estimation", detail: "Depth Anything V2 inference" },
-  { key: "refine", label: "Depth refinement", detail: "Edge-aware filtering" },
-  { key: "calibrate", label: "Scale calibration", detail: "DEM / GCP / scene statistics" },
-  { key: "dsm", label: "DSM generation", detail: "Metric surface model raster" },
-  { key: "mesh", label: "3D mesh generation", detail: "Triangulated terrain + texture" },
-];
-
-export type CalibrationMode = "dem" | "gcp" | "scene";
-
-export type Calibration = {
-  mode: CalibrationMode;
-  applied: boolean;
-  scale: number;
-  offset: number;
-  confidence: number;
-  minElevation: number;
-  maxElevation: number;
-  gcps: GroundControlPoint[];
-  referenceLabel: string;
-};
-
-export type ProcessingMode = "demo" | "backend";
 
 type ProjectState = {
   image: SourceImage | null;
