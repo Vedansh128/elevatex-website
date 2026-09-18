@@ -63,7 +63,70 @@
 :root {
   --radius: 0.75rem;
 
+  --background: oklch(0.985 0.004 250);
+  --foreground: oklch(0.24 0.028 258);
+  --surface: oklch(1 0 0);
+  --surface-raised: oklch(0.965 0.006 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.24 0.028 258);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.24 0.028 258);
+
+  --primary: oklch(0.58 0.12 210);
+  --primary-foreground: oklch(0.99 0.004 250);
+  --secondary: oklch(0.945 0.008 250);
+  --secondary-foreground: oklch(0.28 0.028 258);
+  --muted: oklch(0.95 0.008 250);
+  --muted-foreground: oklch(0.48 0.02 254);
+  --accent: oklch(0.6 0.11 175);
+  --accent-foreground: oklch(0.99 0.004 250);
+
+  --destructive: oklch(0.56 0.2 22);
+  --destructive-foreground: oklch(0.99 0.004 250);
+  --success: oklch(0.56 0.14 158);
+  --success-foreground: oklch(0.99 0.004 250);
+  --warning: oklch(0.62 0.14 60);
+  --warning-foreground: oklch(0.99 0.004 250);
+
+  --border: oklch(0.24 0.028 258 / 12%);
+  --border-strong: oklch(0.24 0.028 258 / 22%);
+  --input: oklch(0.24 0.028 258 / 18%);
+  --ring: oklch(0.58 0.12 210);
+
+  --chart-1: oklch(0.58 0.12 210);
+  --chart-2: oklch(0.56 0.14 158);
+  --chart-3: oklch(0.65 0.14 68);
+  --chart-4: oklch(0.55 0.16 285);
+  --chart-5: oklch(0.58 0.18 22);
+
+  --sidebar: oklch(0.975 0.005 250);
+  --sidebar-foreground: oklch(0.26 0.026 258);
+  --sidebar-primary: oklch(0.58 0.12 210);
+  --sidebar-primary-foreground: oklch(0.99 0.004 250);
+  --sidebar-accent: oklch(0.93 0.01 250);
+  --sidebar-accent-foreground: oklch(0.24 0.028 258);
+  --sidebar-border: oklch(0.24 0.028 258 / 12%);
+  --sidebar-ring: oklch(0.58 0.12 210);
+
+  --gradient-brand: linear-gradient(
+    135deg,
+    oklch(0.58 0.12 210) 0%,
+    oklch(0.58 0.13 172) 55%,
+    oklch(0.52 0.14 245) 100%
+  );
+  --gradient-surface: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--surface) 96%, transparent),
+    color-mix(in oklab, var(--surface-raised) 92%, transparent)
+  );
+  --shadow-panel: 0 16px 34px -26px oklch(0.24 0.03 258 / 35%);
+  --shadow-glow: 0 0 0 1px color-mix(in oklab, var(--primary) 26%, transparent),
+    0 18px 50px -26px color-mix(in oklab, var(--primary) 35%, transparent);
+}
+
+.dark {
   --background: oklch(0.17 0.028 258);
+
   --foreground: oklch(0.96 0.006 250);
   --surface: oklch(0.21 0.03 258);
   --surface-raised: oklch(0.245 0.032 258);
